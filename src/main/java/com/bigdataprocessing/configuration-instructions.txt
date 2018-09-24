@@ -1,0 +1,22 @@
+1. Start the cassandra service with the following command:
+sudo ./bin/cassandra -f
+
+2. Start up Flume with the following command:
+bin/flume-ng agent -c conf -f conf/zillow-app.conf -Dflume.root.logger=DEBUG,console -n ZillowAppAgent
+
+3. Start the kafka server with the following command:
+nohup ~/kafka/bin/kafka-server-start.sh ~/kafka/config/server.properties > ~/kafka/kafka.log 2>&1 &
+
+4. Start the EventGenerator application to make API calls
+
+5. Start the Consumer to polls for the records.
+
+6. Refresh tableau to view data.
+
+
+Schema for Cassandra:
+CREATE KEYSPACE IF NOT EXISTS zillow_app WITH replication = {'class':'SimpleStrategy','replication_factor':1};
+USE zillow_app;
+CREATE TABLE property (zpid float, street text, city text, state text, zipcode text, price int, home_details text,  PRIMARY KEY(zpid));
+
+
